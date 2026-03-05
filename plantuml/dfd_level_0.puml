@@ -1,22 +1,23 @@
 @startuml DFD_Level_0
 ' DFD Level 0 - Sistem Informasi Akademik Sekolah (SIAS)
+' Notasi: Yourdon & DeMarco
 
 skinparam backgroundColor white
 skinparam defaultFontColor black
 skinparam defaultFontName Arial
+skinparam monochrome true
 
-title **DFD Level 0 - Sistem Informasi Akademik Sekolah**
+title **DFD Level 0 - Sistem Informasi Akademik Sekolah**\n//Notasi: Yourdon & DeMarco//
 
 skinparam rectangle {
-    BackgroundColor #dbeafe
-    BorderColor #2563eb
+    BackgroundColor white
+    BorderColor black
     FontSize 14
-    RoundCorner 10
 }
 
 skinparam usecase {
-    BackgroundColor #dcfce7
-    BorderColor #16a34a
+    BackgroundColor white
+    BorderColor black
     FontSize 11
 }
 

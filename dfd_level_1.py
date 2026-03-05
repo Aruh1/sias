@@ -1,6 +1,7 @@
 """
 DFD Level 1 - Sistem Informasi Akademik Sekolah (SIAS)
-3 Entitas, 5 Data Store, 5 Proses — background putih, teks hitam.
+3 Entitas, 5 Data Store, 5 Proses — Notasi Yourdon & DeMarco.
+Data Store = dua garis paralel horizontal terbuka (open-ended).
 """
 
 import matplotlib.pyplot as plt
@@ -26,27 +27,32 @@ def draw_dfd_level_1():
         fontweight="bold",
         color="black",
     )
+    ax.text(
+        10,
+        13.0,
+        "Notasi: Yourdon & DeMarco",
+        ha="center",
+        va="center",
+        fontsize=10,
+        fontstyle="italic",
+        color="gray",
+    )
 
-    # ── Palet Warna (light theme) ──
-    ENT_FILL = "#dbeafe"
-    ENT_EDGE = "#2563eb"
-    PROC_FILL = "#dcfce7"
-    PROC_EDGE = "#16a34a"
-    DS_FILL = "#fef9c3"
-    DS_EDGE = "#ca8a04"
-    ARROW_C = "black"
+    # ── Palet (hitam-putih Yourdon/DeMarco) ──
+    EDGE = "black"
     TXT = "black"
+    ARROW_C = "black"
 
-    # ── Helper: Entitas (kotak) ──
+    # ── Helper: Entitas Eksternal (kotak persegi) ──
     def entity(cx, cy, text):
         w, h = 2.4, 1.0
         r = mpatches.FancyBboxPatch(
             (cx - w / 2, cy - h / 2),
             w,
             h,
-            boxstyle="round,pad=0.1",
-            fc=ENT_FILL,
-            ec=ENT_EDGE,
+            boxstyle="square,pad=0",
+            fc="white",
+            ec=EDGE,
             lw=2,
         )
         ax.add_patch(r)
@@ -56,14 +62,14 @@ def draw_dfd_level_1():
             text,
             ha="center",
             va="center",
-            fontsize=10,
+            fontsize=11,
             fontweight="bold",
             color=TXT,
         )
 
-    # ── Helper: Proses (lingkaran) ──
+    # ── Helper: Proses (lingkaran / bubble) ──
     def process(cx, cy, pid, text, r=0.85):
-        c = plt.Circle((cx, cy), r, fc=PROC_FILL, ec=PROC_EDGE, lw=2)
+        c = plt.Circle((cx, cy), r, fc="white", ec=EDGE, lw=2)
         ax.add_patch(c)
         ax.text(
             cx,
@@ -86,36 +92,42 @@ def draw_dfd_level_1():
             linespacing=1.3,
         )
 
-    # ── Helper: Data Store (kotak dengan garis ID) ──
+    # ── Helper: Data Store (dua garis paralel terbuka — Yourdon/DeMarco) ──
     def datastore(cx, cy, did, text):
-        w, h = 3.0, 0.7
-        r = mpatches.FancyBboxPatch(
-            (cx - w / 2, cy - h / 2),
-            w,
-            h,
-            boxstyle="square,pad=0",
-            fc=DS_FILL,
-            ec=DS_EDGE,
-            lw=1.5,
-        )
-        ax.add_patch(r)
+        w = 3.0
+        h = 0.35
+        # Dua garis horizontal paralel
         ax.plot(
-            [cx - w / 2 + 0.6, cx - w / 2 + 0.6],
-            [cy - h / 2, cy + h / 2],
-            color=DS_EDGE,
+            [cx - w / 2, cx + w / 2],
+            [cy + h, cy + h],
+            color=EDGE,
             lw=1.5,
+            solid_capstyle="butt",
         )
+        ax.plot(
+            [cx - w / 2, cx + w / 2],
+            [cy - h, cy - h],
+            color=EDGE,
+            lw=1.5,
+            solid_capstyle="butt",
+        )
+        # Garis vertikal kiri (pemisah ID)
+        ax.plot(
+            [cx - w / 2 + 0.55, cx - w / 2 + 0.55], [cy - h, cy + h], color=EDGE, lw=1.0
+        )
+        # Teks ID
         ax.text(
-            cx - w / 2 + 0.3,
+            cx - w / 2 + 0.275,
             cy,
             did,
             ha="center",
             va="center",
-            fontsize=8,
+            fontsize=9,
             fontweight="bold",
             color=TXT,
         )
-        ax.text(cx + 0.15, cy, text, ha="center", va="center", fontsize=8, color=TXT)
+        # Teks nama
+        ax.text(cx + 0.15, cy, text, ha="center", va="center", fontsize=9, color=TXT)
 
     # ── Helper: Panah ──
     def arrow(x1, y1, x2, y2, label="", off=(0, 0.2), fs=7):
@@ -182,7 +194,7 @@ def draw_dfd_level_1():
     # P2: Pendataan Guru & Mapel
     arrow(2.7, 7.0, 4.15, 7.0, "Data Guru\n& Mapel", off=(0, 0.3))
     arrow(5.0, 6.15, 5.0, 4.35, "Simpan", off=(-0.5, 0))
-    arrow(5.85, 6.5, 8.5, 5.1, "Simpan", off=(0, 0.25))
+    arrow(5.85, 6.5, 8.5, 5.15, "Simpan", off=(0, 0.25))
 
     # P3: Pengaturan Jadwal
     arrow(6.5, 4.2, 9.15, 6.5, "Data Guru", off=(-0.7, 0.15))

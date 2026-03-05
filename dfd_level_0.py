@@ -1,6 +1,6 @@
 """
 DFD Level 0 - Sistem Informasi Akademik Sekolah (SIAS)
-Diagram Konteks dengan 3 Entitas Eksternal dan 1 Proses Utama.
+Diagram Konteks — Notasi Yourdon & DeMarco.
 """
 
 import matplotlib.pyplot as plt
@@ -26,24 +26,32 @@ def draw_dfd_level_0():
         fontweight="bold",
         color="black",
     )
+    ax.text(
+        7,
+        8.0,
+        "Notasi: Yourdon & DeMarco",
+        ha="center",
+        va="center",
+        fontsize=10,
+        fontstyle="italic",
+        color="gray",
+    )
 
     # ── Warna & Style ──
-    ENTITY_FILL = "#dbeafe"
-    ENTITY_EDGE = "#2563eb"
-    PROC_FILL = "#dcfce7"
-    PROC_EDGE = "#16a34a"
+    ENTITY_EDGE = "black"
+    PROC_EDGE = "black"
     ARROW_C = "black"
     TXT = "black"
 
-    # ── Helper: Entitas (kotak) ──
+    # ── Helper: Entitas Eksternal (kotak) ──
     def draw_entity(cx, cy, label):
         w, h = 2.6, 1.2
         rect = mpatches.FancyBboxPatch(
             (cx - w / 2, cy - h / 2),
             w,
             h,
-            boxstyle="round,pad=0.1",
-            facecolor=ENTITY_FILL,
+            boxstyle="square,pad=0",
+            facecolor="white",
             edgecolor=ENTITY_EDGE,
             linewidth=2,
         )
@@ -54,17 +62,17 @@ def draw_dfd_level_0():
             label,
             ha="center",
             va="center",
-            fontsize=11,
+            fontsize=12,
             fontweight="bold",
             color=TXT,
         )
 
-    # ── Helper: Proses (lingkaran) ──
+    # ── Helper: Proses (lingkaran / bubble) ──
     def draw_process(cx, cy, label, radius=1.5):
         circle = plt.Circle(
             (cx, cy),
             radius,
-            facecolor=PROC_FILL,
+            facecolor="white",
             edgecolor=PROC_EDGE,
             linewidth=2,
         )
@@ -91,7 +99,6 @@ def draw_dfd_level_0():
         )
         mx, my = (x1 + x2) / 2, (y1 + y2) / 2
         offset = 0.25 if label_side == "above" else -0.25
-        # Horizontal arrow
         if abs(y2 - y1) < 0.5:
             ax.text(
                 mx,

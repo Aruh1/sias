@@ -1,9 +1,10 @@
 # ERD Banyak Relasi - Sistem Informasi Akademik Sekolah (SIAS)
+> **Notasi: Yourdon & DeMarco (Chen-style ERD)**
 
 ```mermaid
 erDiagram
     SISWA {
-        string NIS PK
+        string NIS PK "Primary Key"
         string Nama_Siswa
         date Tanggal_Lahir
         string Jenis_Kelamin
@@ -13,7 +14,7 @@ erDiagram
     }
 
     GURU {
-        string NIP PK
+        string NIP PK "Primary Key"
         string Nama_Guru
         string Spesialisasi
         string No_Telepon
@@ -23,7 +24,7 @@ erDiagram
     }
 
     MATA_PELAJARAN {
-        string Kode_Mapel PK
+        string Kode_Mapel PK "Primary Key"
         string Nama_Mapel
         string Tingkat_Kelas
         int KKM
@@ -32,9 +33,9 @@ erDiagram
     }
 
     NILAI {
-        int ID_Nilai PK
-        string NIS FK
-        string Kode_Mapel FK
+        int ID_Nilai PK "Primary Key"
+        string NIS FK "Foreign Key -> SISWA"
+        string Kode_Mapel FK "Foreign Key -> MAPEL"
         float Nilai_Tugas
         float Nilai_UTS
         float Nilai_UAS
@@ -47,5 +48,5 @@ erDiagram
 
 > **Kardinalitas:**
 > - GURU (1) --- (N) MATA_PELAJARAN → 1 Guru mengajar banyak Mapel
-> - SISWA (M) --- (N) MATA_PELAJARAN → dipecah menjadi tabel NILAI
+> - SISWA (M) --- (N) MATA_PELAJARAN → dipecah via tabel NILAI (Junction)
 > - SISWA (1) --- (N) NILAI → 1 Siswa punya banyak Nilai

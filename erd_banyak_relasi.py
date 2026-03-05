@@ -1,6 +1,7 @@
 """
 ERD Banyak Relasi - Sistem Informasi Akademik Sekolah (SIAS)
-ERD lengkap: 3 Entitas + Junction NILAI, relasi 1:N dan M:N — background putih.
+ERD lengkap: 3 Entitas + Junction NILAI, relasi 1:N dan M:N
+Notasi: Yourdon & DeMarco (Chen-style ERD).
 """
 
 import matplotlib.pyplot as plt
@@ -26,29 +27,32 @@ def draw_erd_banyak_relasi():
         fontweight="bold",
         color="black",
     )
+    ax.text(
+        10,
+        13.0,
+        "Notasi: Yourdon & DeMarco",
+        ha="center",
+        va="center",
+        fontsize=10,
+        fontstyle="italic",
+        color="gray",
+    )
 
-    # ── Palet ──
-    ENT_FILL = "#dbeafe"
-    ENT_EDGE = "#2563eb"
-    REL_FILL = "#fce7f3"
-    REL_EDGE = "#db2777"
-    ATTR_FILL = "#f3f4f6"
-    ATTR_EDGE = "#6b7280"
-    PK_EDGE = "#dc2626"
-    FK_EDGE = "#ea580c"
+    # ── Palet (hitam-putih) ──
+    EDGE = "black"
     TXT = "black"
-    LINE_C = "#9ca3af"
+    LINE_C = "black"
 
-    # ── Helper: Entitas ──
+    # ── Helper: Entitas (kotak) ──
     def entity(cx, cy, label):
         w, h = 3.2, 1.3
         r = mpatches.FancyBboxPatch(
             (cx - w / 2, cy - h / 2),
             w,
             h,
-            boxstyle="round,pad=0.15",
-            fc=ENT_FILL,
-            ec=ENT_EDGE,
+            boxstyle="square,pad=0",
+            fc="white",
+            ec=EDGE,
             lw=2,
         )
         ax.add_patch(r)
@@ -70,8 +74,8 @@ def draw_erd_banyak_relasi():
             numVertices=4,
             radius=size,
             orientation=0,
-            fc=REL_FILL,
-            ec=REL_EDGE,
+            fc="white",
+            ec=EDGE,
             lw=2,
         )
         ax.add_patch(diamond)
@@ -81,40 +85,56 @@ def draw_erd_banyak_relasi():
             label,
             ha="center",
             va="center",
-            fontsize=9,
+            fontsize=10,
             fontweight="bold",
             color=TXT,
         )
 
-    # ── Helper: Atribut ──
+    # ── Helper: Atribut (elips) ──
     def attribute(cx, cy, label, is_pk=False, is_fk=False):
-        ec = PK_EDGE if is_pk else (FK_EDGE if is_fk else ATTR_EDGE)
-        lw = 2.2 if (is_pk or is_fk) else 1.3
-        e = mpatches.Ellipse((cx, cy), 1.9, 0.65, fc=ATTR_FILL, ec=ec, lw=lw)
-        ax.add_patch(e)
-        fw = "bold" if is_pk else "normal"
-        fs = "italic" if is_fk else "normal"
-        ax.text(
-            cx,
-            cy,
-            label,
-            ha="center",
-            va="center",
-            fontsize=7.5,
-            color=TXT,
-            fontweight=fw,
-            fontstyle=fs,
+        lw = 2.0 if (is_pk or is_fk) else 1.2
+        ls = "--" if is_fk else "-"
+        e = mpatches.Ellipse(
+            (cx, cy), 1.9, 0.65, fc="white", ec=EDGE, lw=lw, linestyle=ls
         )
+        ax.add_patch(e)
+        # PK underlined
+        if is_pk:
+            ax.text(
+                cx,
+                cy,
+                label,
+                ha="center",
+                va="center",
+                fontsize=8,
+                color=TXT,
+                fontweight="bold",
+            )
+            tw = len(label) * 0.07
+            ax.plot([cx - tw, cx + tw], [cy - 0.13, cy - 0.13], color=TXT, lw=1.5)
+        elif is_fk:
+            ax.text(
+                cx,
+                cy,
+                label,
+                ha="center",
+                va="center",
+                fontsize=8,
+                color=TXT,
+                fontstyle="italic",
+            )
+        else:
+            ax.text(cx, cy, label, ha="center", va="center", fontsize=8, color=TXT)
 
     # ── Helper: Garis ──
     def line(x1, y1, x2, y2):
-        ax.plot([x1, x2], [y1, y2], color=LINE_C, lw=1.2, zorder=0)
+        ax.plot([x1, x2], [y1, y2], color=LINE_C, lw=1.0, zorder=0)
 
     # ══════════ POSISI ══════════
     SISWA = (4.0, 10.0)
     GURU = (16.0, 10.0)
     MAPEL = (10.0, 5.0)
-    NILAI_REL = (4.0, 5.0)
+    NILAI_ENT = (4.0, 5.0)
 
     R_MENGAJAR = (13.0, 7.5)
     R_MEMILIKI = (4.0, 7.5)
@@ -124,7 +144,7 @@ def draw_erd_banyak_relasi():
     entity(*SISWA, "SISWA")
     entity(*GURU, "GURU")
     entity(*MAPEL, "MATA_PELAJARAN")
-    entity(*NILAI_REL, "NILAI\n(Junction)")
+    entity(*NILAI_ENT, "NILAI\n(Junction)")
 
     relation(*R_MENGAJAR, "Mengajar", size=0.9)
     relation(*R_MEMILIKI, "Memiliki", size=0.9)
@@ -133,18 +153,18 @@ def draw_erd_banyak_relasi():
     # ── Garis + Kardinalitas ──
     line(GURU[0], GURU[1] - 0.65, R_MENGAJAR[0], R_MENGAJAR[1] + 0.9)
     line(R_MENGAJAR[0], R_MENGAJAR[1] - 0.9, MAPEL[0] + 1.6, MAPEL[1] + 0.65)
-    ax.text(14.2, 9.0, "1", fontsize=13, fontweight="bold", color="#2563eb")
-    ax.text(11.5, 6.3, "N", fontsize=13, fontweight="bold", color="#dc2626")
+    ax.text(14.2, 9.0, "1", fontsize=13, fontweight="bold", color=TXT)
+    ax.text(11.5, 6.3, "N", fontsize=13, fontweight="bold", color=TXT)
 
     line(SISWA[0], SISWA[1] - 0.65, R_MEMILIKI[0], R_MEMILIKI[1] + 0.9)
-    line(R_MEMILIKI[0], R_MEMILIKI[1] - 0.9, NILAI_REL[0], NILAI_REL[1] + 0.65)
-    ax.text(3.5, 9.0, "1", fontsize=13, fontweight="bold", color="#2563eb")
-    ax.text(3.5, 6.3, "N", fontsize=13, fontweight="bold", color="#dc2626")
+    line(R_MEMILIKI[0], R_MEMILIKI[1] - 0.9, NILAI_ENT[0], NILAI_ENT[1] + 0.65)
+    ax.text(3.5, 9.0, "1", fontsize=13, fontweight="bold", color=TXT)
+    ax.text(3.5, 6.3, "N", fontsize=13, fontweight="bold", color=TXT)
 
-    line(NILAI_REL[0] + 1.6, NILAI_REL[1], R_UNTUK[0] - 0.9, R_UNTUK[1])
+    line(NILAI_ENT[0] + 1.6, NILAI_ENT[1], R_UNTUK[0] - 0.9, R_UNTUK[1])
     line(R_UNTUK[0] + 0.9, R_UNTUK[1], MAPEL[0] - 1.6, MAPEL[1])
-    ax.text(5.8, 5.25, "N", fontsize=13, fontweight="bold", color="#dc2626")
-    ax.text(8.3, 5.25, "1", fontsize=13, fontweight="bold", color="#2563eb")
+    ax.text(5.8, 5.25, "N", fontsize=13, fontweight="bold", color=TXT)
+    ax.text(8.3, 5.25, "1", fontsize=13, fontweight="bold", color=TXT)
 
     # ══════════ ATRIBUT SISWA ══════════
     siswa_attrs = [
@@ -177,7 +197,7 @@ def draw_erd_banyak_relasi():
         ("No_Telepon", False, False),
         ("Alamat", False, False),
         ("Email", False, False),
-        ("Pendidikan_\nTerakhir", False, False),
+        ("Pendidikan_Terakhir", False, False),
     ]
     guru_pos = [
         (13.2, 12.5),
@@ -232,17 +252,14 @@ def draw_erd_banyak_relasi():
     ]
     for (lab, pk, fk), (ax_, ay) in zip(nilai_attrs, nilai_pos):
         attribute(ax_, ay, lab, is_pk=pk, is_fk=fk)
-        line(ax_, ay + 0.32, NILAI_REL[0], NILAI_REL[1] - 0.65)
+        line(ax_, ay + 0.32, NILAI_ENT[0], NILAI_ENT[1] - 0.65)
 
     # ── Legenda ──
-    legend_y = 0.6
-    ax.text(15.0, legend_y + 0.6, "Legenda:", fontsize=9, fontweight="bold", color=TXT)
-    e1 = mpatches.Ellipse((15.3, legend_y), 0.3, 0.3, fc=ATTR_FILL, ec=PK_EDGE, lw=2)
-    ax.add_patch(e1)
-    ax.text(15.7, legend_y, "= Primary Key", fontsize=8, color=PK_EDGE, va="center")
-    e2 = mpatches.Ellipse((17.5, legend_y), 0.3, 0.3, fc=ATTR_FILL, ec=FK_EDGE, lw=2)
-    ax.add_patch(e2)
-    ax.text(17.9, legend_y, "= Foreign Key", fontsize=8, color=FK_EDGE, va="center")
+    ax.text(15.5, 0.8, "Legenda:", fontsize=9, fontweight="bold", color=TXT)
+    # PK
+    ax.text(15.5, 0.35, "___  = Primary Key (underlined)", fontsize=8, color=TXT)
+    # FK
+    ax.text(15.5, -0.05, "- - -  = Foreign Key (dashed)", fontsize=8, color=TXT)
 
     plt.tight_layout()
     plt.savefig(

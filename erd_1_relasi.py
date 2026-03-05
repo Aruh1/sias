@@ -1,6 +1,7 @@
 """
 ERD 1 Relasi - Sistem Informasi Akademik Sekolah (SIAS)
-ERD dengan 1 relasi: GURU (1:N) MATA_PELAJARAN — background putih.
+ERD dengan 1 relasi: GURU (1:N) MATA_PELAJARAN
+Notasi: Yourdon & DeMarco (Chen-style ERD).
 """
 
 import matplotlib.pyplot as plt
@@ -26,28 +27,33 @@ def draw_erd_1_relasi():
         fontweight="bold",
         color="black",
     )
+    ax.text(
+        8,
+        9.0,
+        "Notasi: Yourdon & DeMarco",
+        ha="center",
+        va="center",
+        fontsize=10,
+        fontstyle="italic",
+        color="gray",
+    )
 
-    # ── Palet ──
-    ENT_FILL = "#dbeafe"
-    ENT_EDGE = "#2563eb"
-    REL_FILL = "#fce7f3"
-    REL_EDGE = "#db2777"
-    ATTR_FILL = "#f3f4f6"
-    ATTR_EDGE = "#6b7280"
-    PK_EDGE = "#dc2626"
+    # ── Palet (hitam-putih) ──
+    EDGE = "black"
+    PK_EDGE = "black"
     TXT = "black"
-    LINE_C = "#9ca3af"
+    LINE_C = "black"
 
-    # ── Helper: Entitas ──
+    # ── Helper: Entitas (kotak) ──
     def entity(cx, cy, label):
         w, h = 3.0, 1.2
         r = mpatches.FancyBboxPatch(
             (cx - w / 2, cy - h / 2),
             w,
             h,
-            boxstyle="round,pad=0.15",
-            fc=ENT_FILL,
-            ec=ENT_EDGE,
+            boxstyle="square,pad=0",
+            fc="white",
+            ec=EDGE,
             lw=2,
         )
         ax.add_patch(r)
@@ -57,7 +63,7 @@ def draw_erd_1_relasi():
             label,
             ha="center",
             va="center",
-            fontsize=12,
+            fontsize=13,
             fontweight="bold",
             color=TXT,
         )
@@ -66,13 +72,7 @@ def draw_erd_1_relasi():
     def relation(cx, cy, label):
         s = 0.9
         diamond = mpatches.RegularPolygon(
-            (cx, cy),
-            numVertices=4,
-            radius=s,
-            orientation=0,
-            fc=REL_FILL,
-            ec=REL_EDGE,
-            lw=2,
+            (cx, cy), numVertices=4, radius=s, orientation=0, fc="white", ec=EDGE, lw=2
         )
         ax.add_patch(diamond)
         ax.text(
@@ -81,31 +81,38 @@ def draw_erd_1_relasi():
             label,
             ha="center",
             va="center",
-            fontsize=9,
+            fontsize=10,
             fontweight="bold",
             color=TXT,
         )
 
     # ── Helper: Atribut (elips) ──
     def attribute(cx, cy, label, is_pk=False):
-        ec = PK_EDGE if is_pk else ATTR_EDGE
         lw = 2.2 if is_pk else 1.3
-        e = mpatches.Ellipse((cx, cy), 2.0, 0.7, fc=ATTR_FILL, ec=ec, lw=lw)
+        e = mpatches.Ellipse((cx, cy), 2.0, 0.7, fc="white", ec=EDGE, lw=lw)
         ax.add_patch(e)
-        ax.text(
-            cx,
-            cy,
-            label,
-            ha="center",
-            va="center",
-            fontsize=8,
-            color=TXT,
-            fontweight="bold" if is_pk else "normal",
-        )
+        display = label
+        if is_pk:
+            # Garis bawah untuk PK (underline)
+            ax.text(
+                cx,
+                cy,
+                display,
+                ha="center",
+                va="center",
+                fontsize=9,
+                color=TXT,
+                fontweight="bold",
+            )
+            # Underline
+            tw = len(label) * 0.08
+            ax.plot([cx - tw, cx + tw], [cy - 0.15, cy - 0.15], color=TXT, lw=1.5)
+        else:
+            ax.text(cx, cy, display, ha="center", va="center", fontsize=9, color=TXT)
 
     # ── Helper: Garis ──
     def line(x1, y1, x2, y2):
-        ax.plot([x1, x2], [y1, y2], color=LINE_C, lw=1.2, zorder=0)
+        ax.plot([x1, x2], [y1, y2], color=LINE_C, lw=1.0, zorder=0)
 
     # ══════════ POSISI ══════════
     GURU = (4.5, 5.0)
@@ -120,8 +127,8 @@ def draw_erd_1_relasi():
     line(6.0, 5.0, 7.1, 5.0)
     line(8.9, 5.0, 10.0, 5.0)
 
-    ax.text(6.3, 5.3, "1", fontsize=12, fontweight="bold", color="#2563eb")
-    ax.text(9.5, 5.3, "N", fontsize=12, fontweight="bold", color="#dc2626")
+    ax.text(6.3, 5.3, "1", fontsize=13, fontweight="bold", color=TXT)
+    ax.text(9.5, 5.3, "N", fontsize=13, fontweight="bold", color=TXT)
 
     # ══════════ ATRIBUT GURU ══════════
     guru_attrs = [
@@ -131,7 +138,7 @@ def draw_erd_1_relasi():
         ("No_Telepon", False),
         ("Alamat", False),
         ("Email", False),
-        ("Pendidikan_\nTerakhir", False),
+        ("Pendidikan_Terakhir", False),
     ]
     guru_positions = [
         (1.5, 7.5),

@@ -1,20 +1,21 @@
 # DFD Level 1 - Sistem Informasi Akademik Sekolah (SIAS)
+> **Notasi: Yourdon & DeMarco**
 
 ```mermaid
 flowchart TD
-    %% ── Entitas Eksternal ──
+    %% ── Entitas Eksternal (kotak persegi) ──
     Admin["Admin / Tata Usaha"]
     Siswa["Siswa"]
     Guru["Guru"]
 
-    %% ── Proses ──
+    %% ── Proses (lingkaran / bubble) ──
     P1(("1.0\nRegistrasi &\nPendataan Siswa"))
     P2(("2.0\nPendataan\nGuru & Mapel"))
     P3(("3.0\nPengaturan\nJadwal"))
     P4(("4.0\nPengelolaan\nNilai"))
     P5(("5.0\nCetak Laporan\nAkademik"))
 
-    %% ── Data Store ──
+    %% ── Data Store (silinder — notasi terdekat di Mermaid) ──
     D1[("D1 | Data Siswa")]
     D2[("D2 | Data Guru")]
     D3[("D3 | Data Mapel")]
@@ -52,20 +53,20 @@ flowchart TD
     P5 -- "Laporan Rapor" --> Siswa
     P5 -- "Arsip Laporan" --> Admin
 
-    %% ── Styling ──
-    style Admin fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#000
-    style Siswa fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#000
-    style Guru fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#000
+    %% ── Styling (hitam-putih Yourdon/DeMarco) ──
+    style Admin fill:#fff,stroke:#000,stroke-width:2px,color:#000
+    style Siswa fill:#fff,stroke:#000,stroke-width:2px,color:#000
+    style Guru fill:#fff,stroke:#000,stroke-width:2px,color:#000
 
-    style P1 fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#000
-    style P2 fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#000
-    style P3 fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#000
-    style P4 fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#000
-    style P5 fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#000
+    style P1 fill:#fff,stroke:#000,stroke-width:2px,color:#000
+    style P2 fill:#fff,stroke:#000,stroke-width:2px,color:#000
+    style P3 fill:#fff,stroke:#000,stroke-width:2px,color:#000
+    style P4 fill:#fff,stroke:#000,stroke-width:2px,color:#000
+    style P5 fill:#fff,stroke:#000,stroke-width:2px,color:#000
 
-    style D1 fill:#fef9c3,stroke:#ca8a04,stroke-width:2px,color:#000
-    style D2 fill:#fef9c3,stroke:#ca8a04,stroke-width:2px,color:#000
-    style D3 fill:#fef9c3,stroke:#ca8a04,stroke-width:2px,color:#000
-    style D4 fill:#fef9c3,stroke:#ca8a04,stroke-width:2px,color:#000
-    style D5 fill:#fef9c3,stroke:#ca8a04,stroke-width:2px,color:#000
+    style D1 fill:#fff,stroke:#000,stroke-width:2px,color:#000
+    style D2 fill:#fff,stroke:#000,stroke-width:2px,color:#000
+    style D3 fill:#fff,stroke:#000,stroke-width:2px,color:#000
+    style D4 fill:#fff,stroke:#000,stroke-width:2px,color:#000
+    style D5 fill:#fff,stroke:#000,stroke-width:2px,color:#000
 ```

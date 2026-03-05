@@ -1,13 +1,14 @@
 # DFD Level 0 - Sistem Informasi Akademik Sekolah (SIAS)
+> **Notasi: Yourdon & DeMarco**
 
 ```mermaid
 flowchart LR
-    %% Entitas Eksternal
+    %% Entitas Eksternal (kotak persegi)
     Siswa["Siswa"]
     Guru["Guru"]
     Admin["Admin / Tata Usaha"]
 
-    %% Proses Utama
+    %% Proses Utama (lingkaran / bubble)
     SIAS(("0.0\nSistem Informasi\nAkademik Sekolah\n(SIAS)"))
 
     %% Aliran Data
@@ -20,9 +21,9 @@ flowchart LR
     Admin -- "Data Siswa, Guru,\nMapel, Jadwal" --> SIAS
     SIAS -- "Laporan Akademik" --> Admin
 
-    %% Styling
-    style Siswa fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#000
-    style Guru fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#000
-    style Admin fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#000
-    style SIAS fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#000
+    %% Styling (hitam-putih Yourdon/DeMarco)
+    style Siswa fill:#fff,stroke:#000,stroke-width:2px,color:#000
+    style Guru fill:#fff,stroke:#000,stroke-width:2px,color:#000
+    style Admin fill:#fff,stroke:#000,stroke-width:2px,color:#000
+    style SIAS fill:#fff,stroke:#000,stroke-width:2px,color:#000
 ```
