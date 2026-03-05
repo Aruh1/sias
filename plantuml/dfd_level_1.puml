@@ -1,0 +1,86 @@
+@startuml DFD_Level_1
+' DFD Level 1 - Sistem Informasi Akademik Sekolah (SIAS)
+
+skinparam backgroundColor white
+skinparam defaultFontColor black
+skinparam defaultFontName Arial
+
+title **DFD Level 1 - Sistem Informasi Akademik Sekolah (SIAS)**
+
+skinparam rectangle {
+    BackgroundColor #dbeafe
+    BorderColor #2563eb
+    FontSize 13
+    RoundCorner 10
+}
+
+skinparam usecase {
+    BackgroundColor #dcfce7
+    BorderColor #16a34a
+    FontSize 10
+}
+
+skinparam database {
+    BackgroundColor #fef9c3
+    BorderColor #ca8a04
+    FontSize 10
+}
+
+skinparam arrow {
+    Color black
+    FontColor black
+    FontSize 9
+}
+
+' ── Entitas Eksternal ──
+rectangle "Admin /\nTata Usaha" as Admin
+rectangle "Siswa" as Siswa
+rectangle "Guru" as Guru
+
+' ── Proses ──
+usecase "1.0\nRegistrasi &\nPendataan Siswa" as P1
+usecase "2.0\nPendataan\nGuru & Mapel" as P2
+usecase "3.0\nPengaturan\nJadwal" as P3
+usecase "4.0\nPengelolaan\nNilai" as P4
+usecase "5.0\nCetak Laporan\nAkademik" as P5
+
+' ── Data Store ──
+database "D1 | Data Siswa" as D1
+database "D2 | Data Guru" as D2
+database "D3 | Data Mapel" as D3
+database "D4 | Data Jadwal" as D4
+database "D5 | Data Nilai" as D5
+
+' ── Aliran Data ──
+' P1: Registrasi
+Admin --> P1 : Form Data Siswa Baru
+P1 --> D1 : Simpan Data
+P1 --> Siswa : Info Login
+
+' P2: Pendataan Guru & Mapel
+Admin --> P2 : Data Guru & Mapel
+P2 --> D2 : Simpan
+P2 --> D3 : Simpan
+
+' P3: Pengaturan Jadwal
+Admin --> P3 : Susun Jadwal
+D2 --> P3 : Data Guru
+D3 --> P3 : Data Mapel
+P3 --> D4 : Simpan
+P3 --> Siswa : Info Jadwal
+P3 --> Guru : Info Jadwal
+
+' P4: Pengelolaan Nilai
+Guru --> P4 : Input Nilai Ujian
+D1 --> P4 : Validasi Siswa
+D3 --> P4 : Validasi Mapel
+P4 --> D5 : Simpan Nilai
+
+' P5: Cetak Laporan
+D1 --> P5 : Data Siswa
+D4 --> P5 : Data Jadwal
+D5 --> P5 : Data Nilai
+P5 --> Siswa : Laporan Rapor
+P5 --> Admin : Arsip Laporan
+
+@enduml

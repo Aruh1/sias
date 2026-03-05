@@ -1,0 +1,44 @@
+@startuml ERD_1_Relasi
+' ERD 1 Relasi - GURU (1:N) MATA_PELAJARAN
+
+skinparam backgroundColor white
+skinparam defaultFontColor black
+skinparam defaultFontName Arial
+
+title **ERD 1 Relasi - GURU (1) ---- (N) MATA PELAJARAN**
+
+skinparam entity {
+    BackgroundColor #dbeafe
+    BorderColor #2563eb
+    FontSize 13
+}
+
+entity "GURU" as GURU {
+    * **NIP** <<PK>>
+    --
+    Nama_Guru
+    Spesialisasi
+    No_Telepon
+    Alamat
+    Email
+    Pendidikan_Terakhir
+}
+
+entity "MATA_PELAJARAN" as MAPEL {
+    * **Kode_Mapel** <<PK>>
+    --
+    Nama_Mapel
+    Tingkat_Kelas
+    KKM
+    Semester
+    Kurikulum
+}
+
+GURU ||--o{ MAPEL : "Mengajar\n(1 : N)"
+
+note bottom of GURU
+    1 Guru mengajar
+    banyak Mata Pelajaran
+end note
+
+@enduml

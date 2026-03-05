@@ -1,0 +1,126 @@
+// ERD Banyak Relasi - Sistem Informasi Akademik Sekolah (SIAS)
+graph ERD_Banyak_Relasi {
+    graph [bgcolor=white, fontname="Arial", pad=0.5, nodesep=0.6, ranksep=1.0,
+           label="ERD Banyak Relasi - Sistem Informasi Akademik Sekolah (SIAS)",
+           labelloc=t, fontsize=16, fontcolor=black];
+    node [fontname="Arial", fontcolor=black, color=black];
+    edge [fontname="Arial", color="#9ca3af", penwidth=1.2];
+
+    // ── Entitas ──
+    SISWA [shape=box, style="filled,rounded", fillcolor="#dbeafe", color="#2563eb",
+           label="SISWA", fontsize=14, penwidth=2];
+    GURU [shape=box, style="filled,rounded", fillcolor="#dbeafe", color="#2563eb",
+          label="GURU", fontsize=14, penwidth=2];
+    MAPEL [shape=box, style="filled,rounded", fillcolor="#dbeafe", color="#2563eb",
+           label="MATA_PELAJARAN", fontsize=14, penwidth=2];
+    NILAI [shape=box, style="filled,rounded", fillcolor="#dbeafe", color="#2563eb",
+           label="NILAI\n(Junction)", fontsize=14, penwidth=2];
+
+    // ── Relasi ──
+    Mengajar [shape=diamond, style=filled, fillcolor="#fce7f3", color="#db2777",
+              label="Mengajar", fontsize=11, penwidth=2];
+    Memiliki [shape=diamond, style=filled, fillcolor="#fce7f3", color="#db2777",
+              label="Memiliki", fontsize=11, penwidth=2];
+    Untuk [shape=diamond, style=filled, fillcolor="#fce7f3", color="#db2777",
+           label="Untuk", fontsize=11, penwidth=2];
+
+    // ── Koneksi ──
+    GURU -- Mengajar [label="1", fontsize=14, fontcolor="#2563eb"];
+    Mengajar -- MAPEL [label="N", fontsize=14, fontcolor="#dc2626"];
+
+    SISWA -- Memiliki [label="1", fontsize=14, fontcolor="#2563eb"];
+    Memiliki -- NILAI [label="N", fontsize=14, fontcolor="#dc2626"];
+
+    NILAI -- Untuk [label="N", fontsize=14, fontcolor="#dc2626"];
+    Untuk -- MAPEL [label="1", fontsize=14, fontcolor="#2563eb"];
+
+    // ── Atribut SISWA ──
+    NIS [shape=ellipse, style=filled, fillcolor="#f3f4f6", color="#dc2626",
+         label="NIS", fontsize=9, penwidth=2];
+    Nama_Siswa [shape=ellipse, style=filled, fillcolor="#f3f4f6", color="#6b7280",
+                label="Nama_Siswa", fontsize=9];
+    Tgl_Lahir [shape=ellipse, style=filled, fillcolor="#f3f4f6", color="#6b7280",
+               label="Tanggal_Lahir", fontsize=9];
+    JK [shape=ellipse, style=filled, fillcolor="#f3f4f6", color="#6b7280",
+        label="Jenis_Kelamin", fontsize=9];
+    Alamat_S [shape=ellipse, style=filled, fillcolor="#f3f4f6", color="#6b7280",
+              label="Alamat", fontsize=9];
+    Telp_S [shape=ellipse, style=filled, fillcolor="#f3f4f6", color="#6b7280",
+            label="No_Telepon", fontsize=9];
+    Agama [shape=ellipse, style=filled, fillcolor="#f3f4f6", color="#6b7280",
+           label="Agama", fontsize=9];
+
+    SISWA -- NIS;
+    SISWA -- Nama_Siswa;
+    SISWA -- Tgl_Lahir;
+    SISWA -- JK;
+    SISWA -- Alamat_S;
+    SISWA -- Telp_S;
+    SISWA -- Agama;
+
+    // ── Atribut GURU ──
+    NIP [shape=ellipse, style=filled, fillcolor="#f3f4f6", color="#dc2626",
+         label="NIP", fontsize=9, penwidth=2];
+    Nama_Guru [shape=ellipse, style=filled, fillcolor="#f3f4f6", color="#6b7280",
+               label="Nama_Guru", fontsize=9];
+    Spesialisasi [shape=ellipse, style=filled, fillcolor="#f3f4f6", color="#6b7280",
+                  label="Spesialisasi", fontsize=9];
+    Telp_G [shape=ellipse, style=filled, fillcolor="#f3f4f6", color="#6b7280",
+            label="No_Telepon", fontsize=9];
+    Alamat_G [shape=ellipse, style=filled, fillcolor="#f3f4f6", color="#6b7280",
+              label="Alamat", fontsize=9];
+    Email [shape=ellipse, style=filled, fillcolor="#f3f4f6", color="#6b7280",
+           label="Email", fontsize=9];
+    Pend [shape=ellipse, style=filled, fillcolor="#f3f4f6", color="#6b7280",
+          label="Pendidikan_Terakhir", fontsize=9];
+
+    GURU -- NIP;
+    GURU -- Nama_Guru;
+    GURU -- Spesialisasi;
+    GURU -- Telp_G;
+    GURU -- Alamat_G;
+    GURU -- Email;
+    GURU -- Pend;
+
+    // ── Atribut MAPEL ──
+    Kode_Mapel [shape=ellipse, style=filled, fillcolor="#f3f4f6", color="#dc2626",
+                label="Kode_Mapel", fontsize=9, penwidth=2];
+    Nama_Mapel [shape=ellipse, style=filled, fillcolor="#f3f4f6", color="#6b7280",
+                label="Nama_Mapel", fontsize=9];
+    Tingkat [shape=ellipse, style=filled, fillcolor="#f3f4f6", color="#6b7280",
+             label="Tingkat_Kelas", fontsize=9];
+    KKM [shape=ellipse, style=filled, fillcolor="#f3f4f6", color="#6b7280",
+         label="KKM", fontsize=9];
+    Semester [shape=ellipse, style=filled, fillcolor="#f3f4f6", color="#6b7280",
+              label="Semester", fontsize=9];
+    Kurikulum [shape=ellipse, style=filled, fillcolor="#f3f4f6", color="#6b7280",
+               label="Kurikulum", fontsize=9];
+
+    MAPEL -- Kode_Mapel;
+    MAPEL -- Nama_Mapel;
+    MAPEL -- Tingkat;
+    MAPEL -- KKM;
+    MAPEL -- Semester;
+    MAPEL -- Kurikulum;
+
+    // ── Atribut NILAI ──
+    ID_Nilai [shape=ellipse, style=filled, fillcolor="#f3f4f6", color="#dc2626",
+              label="ID_Nilai", fontsize=9, penwidth=2];
+    FK_NIS [shape=ellipse, style=filled, fillcolor="#f3f4f6", color="#ea580c",
+            label="NIS (FK)", fontsize=9, penwidth=2];
+    FK_Kode [shape=ellipse, style=filled, fillcolor="#f3f4f6", color="#ea580c",
+             label="Kode_Mapel (FK)", fontsize=9, penwidth=2];
+    N_Tugas [shape=ellipse, style=filled, fillcolor="#f3f4f6", color="#6b7280",
+             label="Nilai_Tugas", fontsize=9];
+    N_UTS [shape=ellipse, style=filled, fillcolor="#f3f4f6", color="#6b7280",
+           label="Nilai_UTS", fontsize=9];
+    N_UAS [shape=ellipse, style=filled, fillcolor="#f3f4f6", color="#6b7280",
+           label="Nilai_UAS", fontsize=9];
+
+    NILAI -- ID_Nilai;
+    NILAI -- FK_NIS;
+    NILAI -- FK_Kode;
+    NILAI -- N_Tugas;
+    NILAI -- N_UTS;
+    NILAI -- N_UAS;
+}

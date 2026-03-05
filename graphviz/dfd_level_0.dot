@@ -1,0 +1,30 @@
+// DFD Level 0 - Sistem Informasi Akademik Sekolah (SIAS)
+digraph DFD_Level_0 {
+    rankdir=LR;
+    graph [bgcolor=white, fontname="Arial", pad=0.5, nodesep=1.0, ranksep=2.0];
+    node [fontname="Arial", fontcolor=black, color=black];
+    edge [fontname="Arial", fontcolor=black, color=black, fontsize=10];
+
+    // Entitas Eksternal
+    Siswa [shape=box, style="filled,rounded", fillcolor="#dbeafe", color="#2563eb",
+           label="Siswa", fontsize=14, penwidth=2];
+    Guru [shape=box, style="filled,rounded", fillcolor="#dbeafe", color="#2563eb",
+          label="Guru", fontsize=14, penwidth=2];
+    Admin [shape=box, style="filled,rounded", fillcolor="#dbeafe", color="#2563eb",
+           label="Admin /\nTata Usaha", fontsize=14, penwidth=2];
+
+    // Proses Utama
+    SIAS [shape=circle, style=filled, fillcolor="#dcfce7", color="#16a34a",
+          label="0.0\nSistem Informasi\nAkademik Sekolah\n(SIAS)",
+          fontsize=11, penwidth=2, width=2.5, fixedsize=true];
+
+    // Aliran Data
+    Siswa -> SIAS [label="Data Pendaftaran"];
+    SIAS -> Siswa [label="Info Login,\nJadwal, Rapor"];
+
+    Guru -> SIAS [label="Input Nilai"];
+    SIAS -> Guru [label="Info Jadwal"];
+
+    Admin -> SIAS [label="Data Siswa, Guru,\nMapel, Jadwal"];
+    SIAS -> Admin [label="Laporan Akademik"];
+}

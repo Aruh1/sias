@@ -1,0 +1,67 @@
+// ERD 1 Relasi - GURU (1:N) MATA_PELAJARAN
+graph ERD_1_Relasi {
+    graph [bgcolor=white, fontname="Arial", pad=0.5, nodesep=0.8, ranksep=1.0,
+           label="ERD 1 Relasi - GURU (1) ---- (N) MATA PELAJARAN",
+           labelloc=t, fontsize=16, fontcolor=black];
+    node [fontname="Arial", fontcolor=black, color=black];
+    edge [fontname="Arial", color="#9ca3af", penwidth=1.2];
+
+    // ── Entitas ──
+    GURU [shape=box, style="filled,rounded", fillcolor="#dbeafe", color="#2563eb",
+          label="GURU", fontsize=14, penwidth=2];
+    MAPEL [shape=box, style="filled,rounded", fillcolor="#dbeafe", color="#2563eb",
+           label="MATA_PELAJARAN", fontsize=14, penwidth=2];
+
+    // ── Relasi ──
+    Mengajar [shape=diamond, style=filled, fillcolor="#fce7f3", color="#db2777",
+              label="Mengajar", fontsize=11, penwidth=2];
+
+    // ── Koneksi Entitas-Relasi ──
+    GURU -- Mengajar [label="1", fontsize=14, fontcolor="#2563eb"];
+    Mengajar -- MAPEL [label="N", fontsize=14, fontcolor="#dc2626"];
+
+    // ── Atribut GURU ──
+    NIP [shape=ellipse, style=filled, fillcolor="#f3f4f6", color="#dc2626",
+         label="NIP", fontsize=10, penwidth=2];
+    Nama_Guru [shape=ellipse, style=filled, fillcolor="#f3f4f6", color="#6b7280",
+               label="Nama_Guru", fontsize=10];
+    Spesialisasi [shape=ellipse, style=filled, fillcolor="#f3f4f6", color="#6b7280",
+                  label="Spesialisasi", fontsize=10];
+    No_Telepon_G [shape=ellipse, style=filled, fillcolor="#f3f4f6", color="#6b7280",
+                  label="No_Telepon", fontsize=10];
+    Alamat_G [shape=ellipse, style=filled, fillcolor="#f3f4f6", color="#6b7280",
+              label="Alamat", fontsize=10];
+    Email [shape=ellipse, style=filled, fillcolor="#f3f4f6", color="#6b7280",
+           label="Email", fontsize=10];
+    Pendidikan [shape=ellipse, style=filled, fillcolor="#f3f4f6", color="#6b7280",
+                label="Pendidikan_Terakhir", fontsize=10];
+
+    GURU -- NIP;
+    GURU -- Nama_Guru;
+    GURU -- Spesialisasi;
+    GURU -- No_Telepon_G;
+    GURU -- Alamat_G;
+    GURU -- Email;
+    GURU -- Pendidikan;
+
+    // ── Atribut MAPEL ──
+    Kode_Mapel [shape=ellipse, style=filled, fillcolor="#f3f4f6", color="#dc2626",
+                label="Kode_Mapel", fontsize=10, penwidth=2];
+    Nama_Mapel [shape=ellipse, style=filled, fillcolor="#f3f4f6", color="#6b7280",
+                label="Nama_Mapel", fontsize=10];
+    Tingkat_Kelas [shape=ellipse, style=filled, fillcolor="#f3f4f6", color="#6b7280",
+                   label="Tingkat_Kelas", fontsize=10];
+    KKM [shape=ellipse, style=filled, fillcolor="#f3f4f6", color="#6b7280",
+         label="KKM", fontsize=10];
+    Semester [shape=ellipse, style=filled, fillcolor="#f3f4f6", color="#6b7280",
+              label="Semester", fontsize=10];
+    Kurikulum [shape=ellipse, style=filled, fillcolor="#f3f4f6", color="#6b7280",
+               label="Kurikulum", fontsize=10];
+
+    MAPEL -- Kode_Mapel;
+    MAPEL -- Nama_Mapel;
+    MAPEL -- Tingkat_Kelas;
+    MAPEL -- KKM;
+    MAPEL -- Semester;
+    MAPEL -- Kurikulum;
+}

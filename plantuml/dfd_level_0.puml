@@ -1,0 +1,44 @@
+@startuml DFD_Level_0
+' DFD Level 0 - Sistem Informasi Akademik Sekolah (SIAS)
+
+skinparam backgroundColor white
+skinparam defaultFontColor black
+skinparam defaultFontName Arial
+
+title **DFD Level 0 - Sistem Informasi Akademik Sekolah**
+
+skinparam rectangle {
+    BackgroundColor #dbeafe
+    BorderColor #2563eb
+    FontSize 14
+    RoundCorner 10
+}
+
+skinparam usecase {
+    BackgroundColor #dcfce7
+    BorderColor #16a34a
+    FontSize 11
+}
+
+skinparam arrow {
+    Color black
+    FontColor black
+    FontSize 10
+}
+
+rectangle "Siswa" as Siswa
+rectangle "Guru" as Guru
+rectangle "Admin /\nTata Usaha" as Admin
+
+usecase "0.0\nSistem Informasi\nAkademik Sekolah\n(SIAS)" as SIAS
+
+Siswa --> SIAS : Data Pendaftaran
+SIAS --> Siswa : Info Login,\nJadwal, Rapor
+
+Guru --> SIAS : Input Nilai
+SIAS --> Guru : Info Jadwal
+
+Admin --> SIAS : Data Siswa, Guru,\nMapel, Jadwal
+SIAS --> Admin : Laporan Akademik
+
+@enduml

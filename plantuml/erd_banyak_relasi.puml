@@ -1,0 +1,70 @@
+@startuml ERD_Banyak_Relasi
+' ERD Banyak Relasi - Sistem Informasi Akademik Sekolah (SIAS)
+
+skinparam backgroundColor white
+skinparam defaultFontColor black
+skinparam defaultFontName Arial
+
+title **ERD Banyak Relasi - Sistem Informasi Akademik Sekolah (SIAS)**
+
+skinparam entity {
+    BackgroundColor #dbeafe
+    BorderColor #2563eb
+    FontSize 12
+}
+
+entity "SISWA" as SISWA {
+    * **NIS** <<PK>>
+    --
+    Nama_Siswa
+    Tanggal_Lahir
+    Jenis_Kelamin
+    Alamat
+    No_Telepon
+    Agama
+}
+
+entity "GURU" as GURU {
+    * **NIP** <<PK>>
+    --
+    Nama_Guru
+    Spesialisasi
+    No_Telepon
+    Alamat
+    Email
+    Pendidikan_Terakhir
+}
+
+entity "MATA_PELAJARAN" as MAPEL {
+    * **Kode_Mapel** <<PK>>
+    --
+    Nama_Mapel
+    Tingkat_Kelas
+    KKM
+    Semester
+    Kurikulum
+}
+
+entity "NILAI\n(Junction Table)" as NILAI {
+    * **ID_Nilai** <<PK>>
+    --
+    # NIS <<FK>>
+    # Kode_Mapel <<FK>>
+    Nilai_Tugas
+    Nilai_UTS
+    Nilai_UAS
+}
+
+' ── Relasi ──
+GURU ||--o{ MAPEL : "Mengajar\n(1 : N)"
+SISWA ||--o{ NILAI : "Memiliki\n(1 : N)"
+MAPEL ||--o{ NILAI : "Untuk\n(1 : N)"
+
+note as Legend
+    **Kardinalitas:**
+    GURU (1) --- (N) MATA_PELAJARAN
+    SISWA (M) --- (N) MATA_PELAJARAN → dipecah via NILAI
+    SISWA (1) --- (N) NILAI
+end note
+
+@enduml
