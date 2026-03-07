@@ -1,10 +1,14 @@
 # ERD 1 Relasi - GURU (1:N) MATA_PELAJARAN
-> **Notasi: Yourdon & DeMarco (Chen-style ERD)**
 
 ```mermaid
+---
+title: ERD 1 Relasi - GURU (1:N) MATA_PELAJARAN
+config:
+    layout: elk
+---
 erDiagram
     GURU {
-        string NIS PK "Primary Key - underlined"
+        string NIP PK
         string Nama_Guru
         string Spesialisasi
         string No_Telepon
@@ -14,7 +18,7 @@ erDiagram
     }
 
     MATA_PELAJARAN {
-        string Kode_Mapel PK "Primary Key - underlined"
+        string Kode_Mapel PK
         string Nama_Mapel
         string Tingkat_Kelas
         int KKM
