@@ -1,10 +1,12 @@
-# ERD 1 Relasi - GURU (1:N) MATA_PELAJARAN
+# ERD 1 Relasi Flowchart - GURU (1:N) MATA_PELAJARAN
 
 > Notasi Chen: Kotak = Entitas, Diamond = Relasi, Oval = Atribut, **Atribut PK digarisbawahi**
 
 ```mermaid
 ---
 title: ERD 1 Relasi - GURU (1:N) MATA_PELAJARAN
+config:
+    layout: elk
 ---
 
 flowchart LR

@@ -1,10 +1,12 @@
-# ERD Banyak Relasi - Sistem Informasi Akademik Sekolah (SIAS)
+# ERD Banyak Relasi Flowchart - Sistem Informasi Akademik Sekolah (SIAS)
 
 > Notasi Chen: Kotak = Entitas, Diamond = Relasi, Oval = Atribut, **PK = <u>underline</u>, FK = *italic***
 
 ```mermaid
 ---
 title: ERD Banyak Relasi - Sistem Informasi Akademik Sekolah (SIAS)
+config:
+    layout: elk
 ---
 
 flowchart TB
